@@ -1,1 +1,26 @@
+pipeline {
+    agent any
+
+    environment {
+        FOLDER_PATH = 'path/to/your/folder'  // Set the folder path you want to check
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the repository
+                git 'https://github.com/your/repo.git'
+            }
+        }
+
+        stage('Check Folder Existence') {
+            steps {
+                script {
+                    // Check if the folder exists
+                    def folderExists = fileExists(FOLDER_PATH)
+
+                    if (folderExists) {
+                        echo "Folder '${FOLDER_PATH}' exists. Proceeding with the next steps."
+                    } else {
+                        e
 
